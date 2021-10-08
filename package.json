@@ -1,0 +1,50 @@
+{
+  "name": "esc-configurator-app",
+  "productName": "ESC Configurator",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Standalone app for esc-configurator.com",
+  "main": "main.js",
+  "build": {
+    "appId": "com.esc-configurator.app"
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "build": "electron-builder -mwl",
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+	"simple-git-hooks": {
+    "pre-commit": "npx with-staged '**/*.js' -- eslint",
+    "commit-msg": "npx --no-install commitlint --edit '$1'"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
+    "electron": "^15.1.1",
+    "electron-builder": "^22.11.7",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "simple-git-hooks": "^2.6.1",
+    "with-staged": "^1.0.2"
+  },
+  "author": "Mathias Rasmussen <mathiasvr@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathiasvr/esc-configurator-app.git"
+  },
+  "keywords": [
+    "esc",
+    "configurator",
+    "electron"
+  ],
+  "bugs": {
+    "url": "https://github.com/mathiasvr/esc-configurator-app/issues"
+  },
+  "homepage": "https://github.com/mathiasvr/esc-configurator-app#readme"
+}

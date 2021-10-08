@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+		<link href="./styles.css" rel="stylesheet">
+		<title>Port List</title>
+	</head>
+
+	<body>
+		<p>
+			<label for="port-list">Select serial port</label>
+		</p>
+		<p>
+			<select id="port-list" size="10"></select>
+		</p>
+		<p class="buttons">
+			<button id="cancel-button">Cancel</button>
+			<button id="close-button">Select</button>
+		</p>
+
+		<script src="./modal.js"></script>
+	</body>
+</html>
