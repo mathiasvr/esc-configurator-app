@@ -1,7 +1,5 @@
 const { app, shell, BrowserWindow, Menu } = require('electron')
 
-app.enableSandbox()
-
 function createWindow () {
 	const mainWindow = new BrowserWindow({
 		width: 1200,
@@ -23,6 +21,7 @@ function createWindow () {
 		return { action: 'deny' }
 	})
 
+	// Handle serial port request
 	mainWindow.webContents.session.on('select-serial-port', (event, ports, _, callback) => {
 		event.preventDefault()
 
@@ -45,7 +44,7 @@ function createWindow () {
 			child.show()
 		})
 
-		// https://github.com/electron/electron/issues/28215
+		// TODO: https://github.com/electron/electron/issues/28215
 		// child.once('close', () => {
 		child.webContents.once('close', () => {
 			const url = new URL(child.webContents.getURL())
@@ -55,6 +54,8 @@ function createWindow () {
 		})
 	})
 }
+
+app.enableSandbox()
 
 app.whenReady().then(() => {
 	createWindow()
