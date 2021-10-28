@@ -3,6 +3,8 @@ const Store = require('electron-store')
 
 const store = new Store()
 
+let clearStorage = () => {}
+
 function createWindow () {
 	const mainWindow = new BrowserWindow({
 		width: 1200,
@@ -10,6 +12,8 @@ function createWindow () {
 		minWidth: 900,
 		minHeight: 600
 	})
+
+	clearStorage = () => mainWindow.webContents.session.clearStorageData()
 
 	mainWindow.loadURL('https://esc-configurator.com/')
 
@@ -104,13 +108,30 @@ app.on('window-all-closed', () => {
 
 const menu = Menu.buildFromTemplate([
 	{ role: 'appMenu' },
-	{ role: 'fileMenu' },
+	{
+		role: 'fileMenu',
+		submenu: [
+			{
+				label: 'Clear App Data',
+				click: () => {
+					store.clear()
+					clearStorage()
+				}
+			},
+			{ type: 'separator' },
+			{ role: process.platform === 'darwin' ? 'close' : 'quit' }
+		]
+	},
 	{ role: 'editMenu' },
 	{ role: 'viewMenu' },
 	{ role: 'windowMenu' },
 	{
 		role: 'help',
 		submenu: [{
+			label: 'Check For Updates',
+			click: async () => await shell.openExternal('https://github.com/mathiasvr/esc-configurator-app/releases')
+		},
+		{
 			label: 'Learn More',
 			click: async () => await shell.openExternal('https://github.com/stylesuxx/esc-configurator')
 		}]
