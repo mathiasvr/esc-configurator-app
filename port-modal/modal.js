@@ -1,5 +1,5 @@
 const portList = document.querySelector('#port-list')
-const close = document.querySelector('#close-button')
+const allow = document.querySelector('#allow-button')
 const cancel = document.querySelector('#cancel-button')
 
 const urlSearchParams = new URLSearchParams(window.location.search)
@@ -14,5 +14,5 @@ const click = e => {
 	window.close()
 }
 
-close.addEventListener('click', click)
+allow.addEventListener('click', click)
 cancel.addEventListener('click', click)
