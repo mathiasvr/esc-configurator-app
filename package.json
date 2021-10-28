@@ -19,6 +19,9 @@
     "pre-commit": "npx with-staged '**/*.js' -- eslint",
     "commit-msg": "npx --no-install commitlint --edit '$1'"
   },
+	"dependencies": {
+    "electron-store": "^8.0.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",

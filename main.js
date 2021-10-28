@@ -1,4 +1,7 @@
 const { app, shell, BrowserWindow, Menu } = require('electron')
+const Store = require('electron-store')
+
+const store = new Store()
 
 function createWindow () {
 	const mainWindow = new BrowserWindow({
@@ -19,6 +22,22 @@ function createWindow () {
 	mainWindow.webContents.setWindowOpenHandler(({ url }) => {
 		if (/https?:\/\//i.test(url)) shell.openExternal(url)
 		return { action: 'deny' }
+	})
+
+	const grantedDevices = store.get('granted-devices', [])
+	const containsDevice = device =>
+		grantedDevices.some(granted =>
+			Object.keys(granted).every(key => granted[key] === device[key]))
+
+	// Allow serial permission
+	mainWindow.webContents.session.setPermissionCheckHandler((_, permission) => permission === 'serial')
+
+	// Grant permissions for previously allowed serial devices
+	mainWindow.webContents.session.setDevicePermissionHandler((details) => {
+		if (new URL(details.origin).hostname === 'esc-configurator.com' && details.deviceType === 'serial') {
+			return containsDevice(details.device)
+		}
+		return false
 	})
 
 	// Handle serial port request
@@ -50,6 +69,20 @@ function createWindow () {
 			const url = new URL(child.webContents.getURL())
 			const index = parseInt(url.hash.slice(1), 10)
 			const port = ports[index]
+
+			if (port) {
+				const device = {
+					vendor_id: parseInt(port.vendorId, 10),
+					product_id: parseInt(port.productId, 10),
+					serial_number: port.serialNumber
+				}
+
+				if (!containsDevice(device)) {
+					grantedDevices.push(device)
+					store.set('granted-devices', grantedDevices)
+				}
+			}
+
 			callback(port ? port.portId : '')
 		})
 	})
