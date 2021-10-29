@@ -20,7 +20,9 @@
     "commit-msg": "npx --no-install commitlint --edit '$1'"
   },
   "dependencies": {
-    "electron-store": "^8.0.1"
+    "electron-log": "^4.4.1",
+    "electron-store": "^8.0.1",
+    "electron-updater": "^4.3.9"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.2.0",

@@ -1,5 +1,6 @@
 const { app, shell, BrowserWindow, Menu } = require('electron')
 const Store = require('electron-store')
+const autoUpdater = require('electron-updater').autoUpdater
 
 const store = new Store()
 
@@ -100,6 +101,10 @@ app.whenReady().then(() => {
 	app.on('activate', () => {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow()
 	})
+
+	autoUpdater.checkForUpdatesAndNotify()
+	autoUpdater.logger = require('electron-log')
+	autoUpdater.logger.transports.file.level = 'info'
 })
 
 app.on('window-all-closed', () => {
@@ -128,12 +133,12 @@ const menu = Menu.buildFromTemplate([
 	{
 		role: 'help',
 		submenu: [{
-			label: 'Check For Updates',
-			click: async () => await shell.openExternal('https://github.com/mathiasvr/esc-configurator-app/releases')
-		},
-		{
 			label: 'Learn More',
 			click: async () => await shell.openExternal('https://github.com/stylesuxx/esc-configurator')
+		},
+		{
+			label: 'App Repository',
+			click: async () => await shell.openExternal('https://github.com/mathiasvr/esc-configurator-app')
 		}]
 	}
 ])
