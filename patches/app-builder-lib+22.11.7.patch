@@ -1,0 +1,18 @@
+diff --git a/node_modules/app-builder-lib/out/codeSign/macCodeSign.js b/node_modules/app-builder-lib/out/codeSign/macCodeSign.js
+index 873f8c4..09885b7 100644
+--- a/node_modules/app-builder-lib/out/codeSign/macCodeSign.js
++++ b/node_modules/app-builder-lib/out/codeSign/macCodeSign.js
+@@ -198,11 +198,11 @@ async function getValidIdentities(keychain) {
+                 }
+                 return false;
+             })),
+-            util_1.exec("security", addKeychain(["find-identity", "-v", "-p", "codesigning"])).then(it => it.trim().split("\n")),
++            util_1.exec("security", addKeychain(["find-identity", "-p", "codesigning"])).then(it => it.trim().split("\n")),
+         ]).then(it => {
+             const array = it[0]
+                 .concat(it[1])
+-                .filter(it => !it.includes("(Missing required extension)") && !it.includes("valid identities found") && !it.includes("iPhone ") && !it.includes("com.apple.idms.appleid.prd."))
++                .filter(it => it.includes("CSSMERR_TP_NOT_TRUSTED"))
+                 // remove 1)
+                 .map(it => it.substring(it.indexOf(")") + 1).trim());
+             return Array.from(new Set(array));
