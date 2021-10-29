@@ -10,16 +10,16 @@
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "start": "electron .",
+    "start": "electronmon .",
     "build": "electron-builder -mwl",
     "lint": "eslint .",
     "test": "npm run lint"
   },
-	"simple-git-hooks": {
+  "simple-git-hooks": {
     "pre-commit": "npx with-staged '**/*.js' -- eslint",
     "commit-msg": "npx --no-install commitlint --edit '$1'"
   },
-	"dependencies": {
+  "dependencies": {
     "electron-store": "^8.0.1"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
     "@commitlint/config-conventional": "^13.2.0",
     "electron": "^15.1.1",
     "electron-builder": "^22.11.7",
+    "electronmon": "^2.0.2",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
