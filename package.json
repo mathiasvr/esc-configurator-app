@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electronmon .",
-    "build": "electron-builder -mwl",
+    "build": "electron-builder",
     "lint": "eslint .",
     "test": "npm run lint"
   },

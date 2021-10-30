@@ -1,0 +1,34 @@
+name: Build and Release
+
+on: push
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - run: npm ci
+
+      - run: npm test
+
+      - name: Patch to allow self-signed certificate
+        run: npx --no patch-package
+
+      - name: Build and release Electron app
+        env:
+          GH_TOKEN: ${{ secrets.github_token }}
+          CSC_LINK: ${{ secrets.cert }}
+          CSC_KEY_PASSWORD: ${{ secrets.cert_password }}
+        run: npx --no electron-builder
