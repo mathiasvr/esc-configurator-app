@@ -16,8 +16,8 @@
 		"test": "npm run lint"
 	},
 	"simple-git-hooks": {
-		"pre-commit": "npx with-staged '**/*.js' -- eslint",
-		"commit-msg": "npx --no-install commitlint --edit '$1'"
+		"pre-commit": "npx --no with-staged '**/*.js' -- eslint",
+		"pre-push": "[ $(git branch --show-current) == main ] && npx --no commitlint --from=origin/main --to=HEAD"
 	},
 	"dependencies": {
 		"electron-log": "^4.4.1",
