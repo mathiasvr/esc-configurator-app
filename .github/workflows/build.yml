@@ -24,11 +24,11 @@ jobs:
       - run: npm test
 
       - name: Patch to allow self-signed certificate
-        run: npx --no patch-package
+        run: npx --no -- patch-package
 
       - name: Build and release Electron app
         env:
           GH_TOKEN: ${{ secrets.github_token }}
           CSC_LINK: ${{ secrets.cert }}
           CSC_KEY_PASSWORD: ${{ secrets.cert_password }}
-        run: npx --no electron-builder
+        run: npx --no -- electron-builder

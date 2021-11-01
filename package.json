@@ -6,7 +6,15 @@
 	"description": "Standalone app for esc-configurator.com",
 	"main": "main.js",
 	"build": {
-		"appId": "com.esc-configurator.app"
+		"appId": "com.esc-configurator.app",
+		"mac": {
+			"target": "zip",
+			"category": "public.app-category.utilities"
+		},
+		"snap": {
+			"publish": "github"
+		},
+		"forceCodeSigning": true
 	},
 	"scripts": {
 		"postinstall": "electron-builder install-app-deps",
@@ -18,7 +26,7 @@
 	},
 	"simple-git-hooks": {
 		"pre-commit": "npx --no with-staged '**/*.js' -- eslint",
-		"pre-push": "[ $(git branch --show-current) == main ] && npx --no commitlint --from=origin/main --to=HEAD"
+		"pre-push": "[ $(git branch --show-current) != main ] || npx --no -- commitlint --from=origin/main --to=HEAD"
 	},
 	"dependencies": {
 		"electron-log": "^4.4.1",
