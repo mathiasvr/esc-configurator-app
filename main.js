@@ -7,6 +7,8 @@ const store = new Store()
 let clearStorage = () => {}
 
 function createWindow () {
+	const appUrl = new URL('https://esc-configurator.com/')
+
 	const mainWindow = new BrowserWindow({
 		width: 1200,
 		height: 800,
@@ -16,7 +18,7 @@ function createWindow () {
 
 	clearStorage = () => mainWindow.webContents.session.clearStorageData()
 
-	mainWindow.loadURL('https://esc-configurator.com/')
+	mainWindow.loadURL(appUrl.href)
 
 	// Prevent navigation in main window
 	mainWindow.webContents.on('will-navigate', e => {
@@ -39,7 +41,7 @@ function createWindow () {
 
 	// Grant permissions for previously allowed serial devices
 	mainWindow.webContents.session.setDevicePermissionHandler((details) => {
-		if (new URL(details.origin).hostname === 'esc-configurator.com' && details.deviceType === 'serial') {
+		if (new URL(details.origin).hostname === appUrl.hostname && details.deviceType === 'serial') {
 			return containsDevice(details.device)
 		}
 		return false
@@ -51,7 +53,7 @@ function createWindow () {
 
 		if (ports.length === 0) return
 
-		const child = new BrowserWindow({
+		const portWindow = new BrowserWindow({
 			parent: mainWindow,
 			modal: true,
 			show: false,
@@ -62,16 +64,14 @@ function createWindow () {
 
 		const portNames = ports.map(p => p.displayName || p.portName)
 
-		child.loadFile('port-modal/modal.html', { query: { data: JSON.stringify(portNames) } })
+		portWindow.loadFile('port-modal/modal.html', { query: { data: JSON.stringify(portNames) } })
 
-		child.once('ready-to-show', () => {
-			child.show()
-		})
+		portWindow.once('ready-to-show', () => portWindow.show())
 
 		// TODO: https://github.com/electron/electron/issues/28215
 		// child.once('close', () => {
-		child.webContents.once('close', () => {
-			const url = new URL(child.webContents.getURL())
+		portWindow.webContents.once('close', () => {
+			const url = new URL(portWindow.webContents.getURL())
 			const index = parseInt(url.hash.slice(1), 10)
 			const port = ports[index]
 
