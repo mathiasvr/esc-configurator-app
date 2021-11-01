@@ -12,6 +12,7 @@
 		"postinstall": "electron-builder install-app-deps",
 		"start": "electronmon .",
 		"build": "electron-builder",
+		"release": "standard-version",
 		"lint": "eslint .",
 		"test": "npm run lint"
 	},
@@ -33,6 +34,7 @@
 		"eslint-config-standard": "^16.0.3",
 		"patch-package": "^6.4.7",
 		"simple-git-hooks": "^2.6.1",
+		"standard-version": "^9.3.2",
 		"with-staged": "^1.0.2"
 	},
 	"author": "Mathias Rasmussen <mathiasvr@gmail.com>",
