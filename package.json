@@ -1,7 +1,7 @@
 {
 	"name": "esc-configurator-app",
 	"productName": "ESC Configurator",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"private": true,
 	"description": "Standalone app for esc-configurator.com",
 	"main": "main.js",
