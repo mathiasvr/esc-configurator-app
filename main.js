@@ -1,6 +1,6 @@
 const { app, shell, BrowserWindow, Menu } = require('electron')
 const Store = require('electron-store')
-const autoUpdater = require('electron-updater').autoUpdater
+const { autoUpdater } = require('electron-updater')
 
 const store = new Store()
 
@@ -40,10 +40,11 @@ function createWindow () {
 	mainWindow.webContents.session.setPermissionCheckHandler((_, permission) => permission === 'serial')
 
 	// Grant permissions for previously allowed serial devices
-	mainWindow.webContents.session.setDevicePermissionHandler((details) => {
+	mainWindow.webContents.session.setDevicePermissionHandler(details => {
 		if (new URL(details.origin).hostname === appUrl.hostname && details.deviceType === 'serial') {
 			return containsDevice(details.device)
 		}
+
 		return false
 	})
 
@@ -134,11 +135,11 @@ const menu = Menu.buildFromTemplate([
 		role: 'help',
 		submenu: [{
 			label: 'Learn More',
-			click: async () => await shell.openExternal('https://github.com/stylesuxx/esc-configurator')
+			click: () => shell.openExternal('https://github.com/stylesuxx/esc-configurator')
 		},
 		{
 			label: 'App Repository',
-			click: async () => await shell.openExternal('https://github.com/mathiasvr/esc-configurator-app')
+			click: () => shell.openExternal('https://github.com/mathiasvr/esc-configurator-app')
 		}]
 	}
 ])
