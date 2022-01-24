@@ -1,5 +1,7 @@
 # ESC Configurator App
 
+![Build](https://github.com/mathiasvr/esc-configurator-app/actions/workflows/build.yml/badge.svg)
+
 Standalone app for [esc-configurator.com](https://esc-configurator.com/)
 
 Main repo at [stylesuxx/esc-configurator](https://github.com/stylesuxx/esc-configurator)
