@@ -34,9 +34,9 @@
 		"electron-updater": "^4.3.9"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^13.2.0",
-		"@commitlint/config-conventional": "^13.2.0",
-		"electron": "^15.1.1",
+		"@commitlint/cli": "^16.1.0",
+		"@commitlint/config-conventional": "^16.0.0",
+		"electron": "^16.0.7",
 		"electron-builder": "22.11.7",
 		"electronmon": "^2.0.2",
 		"eslint-config-standard": "^16.0.3",
