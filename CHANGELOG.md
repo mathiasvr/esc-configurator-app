@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/mathiasvr/esc-configurator-app/compare/v0.1.0...v0.2.0) (2022-01-25)
+
+
+### Features
+
+* Allow switching to development version ([f80f332](https://github.com/mathiasvr/esc-configurator-app/commit/f80f33250d214e48322ba3ffbb4aab7cfbdb1242))
+
+
+### Bug Fixes
+
+* Avoid duplicate events with recreated window ([f718ee6](https://github.com/mathiasvr/esc-configurator-app/commit/f718ee662a7854dd23f53eab46cb3c6c34421bf3))
+
 ## [0.1.0](https://github.com/mathiasvr/esc-configurator-app/compare/v0.0.0...v0.1.0) (2021-11-01)
 
 
