@@ -92,6 +92,11 @@ function createWindow () {
 			callback(port ? port.portId : '')
 		})
 	})
+
+	mainWindow.once('close', () => {
+		mainWindow.webContents.session.removeAllListeners()
+		mainWindow.webContents.removeAllListeners()
+	})
 }
 
 app.enableSandbox()
