@@ -2,12 +2,14 @@ const { app, shell, BrowserWindow, Menu } = require('electron')
 const Store = require('electron-store')
 const { autoUpdater } = require('electron-updater')
 
+let currentAppUrl = new URL('https://esc-configurator.com/')
+
 const store = new Store()
 
 let clearStorage = () => {}
 
 function createWindow () {
-	const appUrl = new URL('https://esc-configurator.com/')
+	const appUrl = currentAppUrl
 
 	const mainWindow = new BrowserWindow({
 		width: 1200,
@@ -127,6 +129,16 @@ const menu = Menu.buildFromTemplate([
 				click: () => {
 					store.clear()
 					clearStorage()
+				}
+			},
+			{
+				label: 'Switch To Development Version',
+				id: 'dev-version',
+				click: () => {
+					BrowserWindow.getAllWindows().forEach(w => w.close())
+					currentAppUrl = new URL('https://develop.esc-configurator.com/')
+					createWindow()
+					Menu.getApplicationMenu().getMenuItemById('dev-version').enabled = false
 				}
 			},
 			{ type: 'separator' },
